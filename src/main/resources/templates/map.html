@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Markers</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+<script th:inline="javascript">
+
+    var locations = [
+        ['test1', /*[[${points[0].getLat()}]]*/, /*[[${points[0].getLng()}]]*/],
+        ['test2', /*[[${points[1].getLat()}]]*/, /*[[${points[1].getLng()}]]*/],
+        ['test3', /*[[${points[2].getLat()}]]*/, /*[[${points[2].getLng()}]]*/],
+        ['test4', /*[[${points[3].getLat()}]]*/, /*[[${points[3].getLng()}]]*/],
+        ['test5', /*[[${points[4].getLat()}]]*/, /*[[${points[4].getLng()}]]*/],
+        ['Adres', /*[[${points[5].getLat()}]]*/, /*[[${points[5].getLng()}]]*/]
+    ];
+
+    var markers = [];
+    var i;
+    var map;
+
+    function initMap() {
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 18,
+            center: new google.maps.LatLng(/*[[${points[5].getLat()}]]*/,/*[[${points[5].getLng()}]]*/)
+        });
+
+        draw();
+    }
+    function draw() {
+        for (i = 0; i < locations.length; i++) {
+            markers.push(new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map:map,
+                title: locations[i][0]
+            }));
+        }
+    }
+   // google.maps.event.addDomListener(window, 'load', initMap());
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYRlvguq6hrutMRLY13FGAFbLr8sAdoO4&callback=initMap">
+</script>
+</body>
+</html>
