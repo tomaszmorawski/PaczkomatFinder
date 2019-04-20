@@ -32,11 +32,11 @@ public class ViewerController {
     }
 
     @GetMapping("/{$town}/{$street}/{$no}")
-    public String getPointsFromAddress(@PathVariable("$town") String town,@PathVariable("$street") String street, @PathVariable("$no") Long noumber, Model model){
+    public String getPointsFromAddress(@PathVariable("$town") String town, @PathVariable("$street") String street, @PathVariable("$no") Long number, Model model) {
         List<DispatchPoint> points = new ArrayList<>();
         try {
             Map<String, String> map = new HashMap<>();
-            map.put("address", town+"+"+street+"+"+noumber);
+            map.put("address", town + "+" + street + "+" + number);
             points =new  NearPointsFinder(new CSVParser()).getPoints(map);
         } catch (ParseException e) {
             e.printStackTrace();
